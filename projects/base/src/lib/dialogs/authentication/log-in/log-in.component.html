@@ -1,0 +1,46 @@
+<h1 mat-dialog-title *ngIf="data.status!=='LOGGING_IN'">Log in to GamesByEmail</h1>
+<h1 mat-dialog-title *ngIf="data.status==='LOGGING_IN'">Logging in to GamesByEmail...</h1>
+<mat-error class="data-error" *ngIf="data.error" [@errorTransition]>
+    {{data.error}}
+  </mat-error>
+<div mat-dialog-content class="dialog-content">
+  <form [formGroup]="form">
+    <mat-form-field>
+      <input matInput type="email" formControlName="email" [attr.disabled]="data.status==='LOGGING_IN' || undefined" placeholder="Your email address"
+        matTooltip="Any email address associated to your GamesByEmail account." matTooltipPosition="right" />
+      <mat-error *ngIf="hasError('email','email') && !hasError('email','required')">
+        Please enter a valid email address
+      </mat-error>
+      <mat-error *ngIf="hasError('email','required')">
+        Email is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="password" formControlName="password" [attr.disabled]="data.status==='LOGGING_IN' || undefined"
+        placeholder="Password" matTooltip="Your GamesByEmail password." matTooltipPosition="right" />
+      <mat-error *ngIf="hasError('password','required')">
+        Password is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-checkbox formControlName="rememberMe" [disabled]="data.status==='LOGGING_IN'" matTooltip="Stay signed in to GamesByEmail."
+      matTooltipPosition="right">
+      Remember me
+    </mat-checkbox>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button class="mat-primary" (click)="action('SUBMIT_LOG_IN')" [disabled]="data.status==='LOGGING_IN' || hasError('email,password',undefined,true)">
+    Log In
+  </button>
+  <mat-hint (click)="action('VIEW_FORGOT_PASSWORD')">
+    Forgot your password?
+  </mat-hint>
+</div>
+<div mat-dialog-footer class="dialog-footer">
+  <mat-hint>
+    New to GamesByEmail?
+    <span class="mat-primary" (click)="action('VIEW_SIGN_UP')">
+      Sign up now Â»
+    </span>
+  </mat-hint>
+</div>

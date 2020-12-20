@@ -1,0 +1,17 @@
+<mat-card>
+  <mat-card-title><mat-icon *ngIf="(isHandset | async)?.matches" svgIcon="menu" (click)="menuOpen=!menuOpen"></mat-icon> Rules of {{gameName}}</mat-card-title>
+  <mat-drawer-container style="height:500px">
+    <mat-drawer class="sidenav"
+    fixedInViewport="false"
+    [mode]="(isHandset | async)?.matches ? 'over' : 'side'" 
+    [opened]="menuOpen || !(isHandset | async)?.matches"
+    >
+      <a class="sidenav-link" *ngFor="let link of links" [href]="'#'+link.name" [ngStyle]="{'padding-left':(link.depth*10)+'px'}" (click)="linkClick($event,link.name)">
+        {{link.title}}
+      </a>
+    </mat-drawer>
+    <mat-drawer-content>
+      <ng-content></ng-content>
+    </mat-drawer-content>
+  </mat-drawer-container>
+</mat-card>

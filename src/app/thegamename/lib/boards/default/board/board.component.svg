@@ -1,0 +1,55 @@
+<svg #entireGame xmlns="http://www.w3.org/2000/svg" [attr.viewBox]="'0 0 '+viewBox.width+' '+viewBox.height">
+  <defs gamesbyemail-games-thegamename-default-piecelibrary #pieceLibrary></defs>
+  <g #boardArea>
+    <ng-container *ngFor="let territory of game.board.territories">
+      <polygon fill="black" [attr.points]="territory.polygon" class="territory" [ngClass]="territoryClass(territory)" (click)="territoryClick(territory,$event)" (mouseenter)="territoryEnter(territory,$event)" (mouseleave)="territoryLeave(territory,$event)" />
+    </ng-container>
+    <svg x=434 y=86 width=31 height=31 pointer-events="none">
+      <use href="#gbe-ww2-roundel-USSR" />
+    </svg>
+    <svg x=268 y=136 width=31 height=31 pointer-events="none">
+      <use href="#gbe-ww2-roundel-Germany" />
+    </svg>
+    <svg x=224 y=107 width=31 height=31 pointer-events="none">
+      <use href="#gbe-ww2-roundel-UnitedKingdom" />
+    </svg>
+    <svg x=680 y=219 width=31 height=31 pointer-events="none">
+      <use href="#gbe-ww2-roundel-Japan" />
+    </svg>
+    <svg x=24 y=228 width=31 height=31 pointer-events="none">
+      <use href="#gbe-ww2-roundel-UnitedStates" />
+    </svg>
+    <svg x=159 y=462 width=83 height=33 pointer-events="none">
+      <use href="#gbe-ww2-title" />
+    </svg>
+    <text class="bragging" x="201" y="498" text-anchor="middle" alignment-baseline="hanging">A GamesByEmail Game</text>
+    <svg x=187 y=417 width=27 height=33 pointer-events="none">
+      <use href="#gbe-logo" color="rgb(89,119,174)" fill="#ffffff" />
+    </svg>
+    <text class="serviceMark" x="210" y="451" text-anchor="middle" alignment-baseline="hanging" fill="rgb(89,119,174)" stroke="none">SM</text>
+    <svg x=422 y=388 width=107 height=123>
+      <use href="#gbe-ww2-compassRose" />
+    </svg>
+    <ng-container *ngFor="let territory of game.board.territories">
+      <g *ngIf="territory.data.ipcPoint" [attr.transform]="'translate('+territory.data.ipcPoint.x+','+territory.data.ipcPoint.y+')'" pointer-events="none">
+        <ellipse [attr.cx]="territory.data.ipcValue!==undefined &amp;&amp; territory.data.ipcValue>=10 ? 1 : 0" [attr.rx]="territory.data.ipcValue!==undefined &amp;&amp; territory.data.ipcValue>=10 ? 6 : 4" ry="5" fill="#000000" stroke=none/>
+        <text fill="#ffffff" stroke=none text-anchor="middle" alignment-baseline="central" font-size="8">{{territory.data.ipcValue}}</text>
+      </g>
+      <text *ngFor="let title of territory.data.titles" class="title" [attr.x]="title.point.x" [attr.y]="title.point.y" text-anchor="middle" alignment-baseline="hanging" font-size="8">{{title.text}}</text>
+    </ng-container>
+    <ng-container *ngFor="let territory of game.board.territories">
+        <ng-container *ngFor="let displayPiece of territory.displayPieces">
+          <circle *ngIf="displayPiece.count>5" [attr.transform]="'translate('+displayPiece.point.x+','+displayPiece.point.y+')'" [attr.r]="displayPiece.count/2" class="unitHalo" [ngClass]="displayPiece.piece.team.id"/>
+      </ng-container>
+    </ng-container>
+    <ng-container *ngFor="let territory of game.board.territories">
+        <g *ngFor="let displayPiece of territory.displayPieces" [attr.transform]="'translate('+displayPiece.point.x+','+displayPiece.point.y+')'">
+          <g [template-projection]="pieceLibrary" [entity]="displayPiece.piece" class="piece"></g>
+      </g>
+    </ng-container>
+    <rect #dialogOverlay x="0" y="0" [attr.width]="viewBox.width" [attr.height]="viewBox.height" fill="rgba(0,0,0,0.4)" style="display:none"/>
+    <g [attr.transform]="'translate('+(viewBox.width/2)+','+(viewBox.height/2)+')'">
+      <g #dialogArea></g>
+    </g>
+  </g>
+</svg>

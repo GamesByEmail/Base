@@ -1,0 +1,26 @@
+.dialog-content {
+    position:relative;
+}
+.spinner-holder {
+    position:absolute;
+    left:10px;
+    right:10px;
+    background-color: rgba(128,128,128,0.5);
+    padding:10px;
+}
+.error-holder {
+    position:absolute;
+    left:10px;
+    right:10px;
+    background-color: rgba(41, 179, 94, 0.534);
+    padding:20px 10px;
+}
+.error-message{
+    color:darkred;
+}
+mat-spinner {
+    margin:0 auto;
+}
+[svgicon=warning] {
+  vertical-align: sub;
+}

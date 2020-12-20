@@ -1,0 +1,26 @@
+<mat-tab-group [selectedIndex]="initialTab" (selectedIndexChange)="selectedIndexChange($event)">
+  <mat-tab *ngIf="play" label="Play">
+    <ng-template matTabContent>
+      <ng-content *ngTemplateOutlet="play">
+      </ng-content>
+    </ng-template>
+  </mat-tab>
+  <mat-tab *ngIf="startGame" label="Start Game">
+    <ng-template matTabContent>
+      <ng-content *ngTemplateOutlet="startGame">
+      </ng-content>
+    </ng-template>
+  </mat-tab>
+  <mat-tab *ngIf="joinGame" label="Join Game">
+    <ng-template matTabContent>
+      <ng-content *ngTemplateOutlet="joinGame">
+      </ng-content>
+    </ng-template>
+  </mat-tab>
+  <mat-tab *ngIf="rules" label="Rules">
+    <ng-template matTabContent>
+      <ng-content *ngTemplateOutlet="rules">
+      </ng-content>
+    </ng-template>
+  </mat-tab>
+</mat-tab-group>

@@ -1,0 +1,12 @@
+<gamesbyemail-base-authentication-login *ngIf="view==='LOG_IN'" [me]="me" [data]="data" (action)="action($event)"></gamesbyemail-base-authentication-login>
+<gamesbyemail-base-authentication-forgotpassword *ngIf="view==='FORGOT_PASSWORD'" [me]="me" [data]="data" (action)="action($event)"></gamesbyemail-base-authentication-forgotpassword>
+<gamesbyemail-base-authentication-entercode *ngIf="view==='ENTER_CODE'" [me]="me" [data]="data" (action)="action($event)"></gamesbyemail-base-authentication-entercode>
+<gamesbyemail-base-authentication-signup *ngIf="view==='SIGN_UP'" [me]="me" [data]="data" (action)="action($event)"></gamesbyemail-base-authentication-signup>
+<gamesbyemail-base-authentication-gethelp *ngIf="view==='GET_HELP'" [me]="me" [data]="data" (action)="action($event)"></gamesbyemail-base-authentication-gethelp>
+<div *ngIf="serviceSubscription" class="overlay" [@spinnerTransition]>
+  <mat-card *ngIf="serviceSubscription" class="spinner-holder">
+    <mat-spinner class="net"></mat-spinner>
+  </mat-card>
+</div>
+<!--
+-->

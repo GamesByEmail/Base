@@ -1,0 +1,16 @@
+.not-recommended {
+    opacity: 0.5;
+}
+mat-select,
+mat-form-field {
+    width:100%;
+}
+.name-editor {
+    width:100px;
+}
+.experience-editor {
+    width:90px;
+}
+[svgicon=warning] {
+  vertical-align: sub;
+}

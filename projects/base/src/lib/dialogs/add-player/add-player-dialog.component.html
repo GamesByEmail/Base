@@ -1,0 +1,40 @@
+<h1 mat-dialog-title *ngIf="!vetSubscription && !vettingError">Add a player</h1>
+<h1 mat-dialog-title *ngIf="vetSubscription">Checking playability...</h1>
+<h1 mat-dialog-title *ngIf="vettingError">
+  <mat-icon color="warn" svgIcon="warning"></mat-icon> Not Playable
+</h1>
+<div mat-dialog-content class="dialog-content">
+  <mat-card *ngIf="vetSubscription" class="spinner-holder">
+    <mat-spinner class="vetting"></mat-spinner>
+  </mat-card>
+  <mat-card *ngIf="vettingError" class="error-holder">
+    <mat-card-content>
+      <p>There was an error adding this person to your player list. The error message is:
+      </p>
+      <div class="error-message">{{vettingError}}</div>
+    </mat-card-content>
+  </mat-card>
+  <form [formGroup]="form" [style.visibility]="vettingError ? 'hidden' : 'visible'">
+    <mat-form-field>
+      <input matInput type="text" formControlName="name" [attr.disabled]="vetSubscription || vettingError" placeholder="Player's name"
+        matTooltip="This is how the player's name will appear in your list." matTooltipPosition="right" />
+      <mat-error *ngIf="hasError('name','required')">
+        Name is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="email" formControlName="email" [attr.disabled]="vetSubscription || vettingError"
+        placeholder="Player's email address" matTooltip="Player's email address." matTooltipPosition="right" />
+      <mat-error *ngIf="hasError('email','email') && !hasError('email','required')">
+        Please enter a valid email address
+      </mat-error>
+      <mat-error *ngIf="hasError('email','required')">
+        Email is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="picked()" [disabled]="vetSubscription!=undefined || hasError('name,email',undefined,true)">Ok</button>
+  <button mat-button [mat-dialog-close]>Cancel</button>
+</div>

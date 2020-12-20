@@ -1,0 +1,13 @@
+{
+  "name": "@gamesbyemail/base",
+  "version": "0.0.25",
+  "peerDependencies": {
+    "@angular/common": ">=11.0.4",
+    "@angular/core": ">=11.0.4",
+    "@angular/animations": ">=11.0.4",
+    "@angular/cdk": ">=11.0.3",
+    "@angular/material": ">=11.0.3",
+    "@packageforge/deferred": ">=0.0.5",
+    "@packageforge/geometry2d": ">=0.0.11"
+  }
+}

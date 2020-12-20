@@ -1,0 +1,18 @@
+<h1 mat-dialog-title>Join Enemy Game?</h1>
+<div mat-dialog-content>
+  This game has {{data.enemies.length}} {{data.enemies.length>1 ? 'players' : 'player'}} in your enemies list:
+  <li *ngFor="let entry of data.enemies">
+    {{entry.enemy.name}} playing
+    <ng-container *ngFor="let team of entry.teams; let i = index">
+      <ng-container *ngIf="i>0">, </ng-container>
+      {{team.title}} as {{team.player.title}}
+    </ng-container>
+    <ng-container *ngIf="entry.enemy.notes">
+      <br>Notes: {{entry.enemy.notes}}
+    </ng-container>
+  </li>
+</div>
+<div mat-dialog-actions>
+  <button mat-button color="primary" (click)="close(true)">Join Anyway</button>
+  <button mat-button (click)="close(false)">Cancel</button>
+</div>

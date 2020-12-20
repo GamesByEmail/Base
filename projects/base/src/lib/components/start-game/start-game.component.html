@@ -1,0 +1,36 @@
+<mat-card>
+  <ng-content></ng-content>
+  <mat-form-field class="game-title">
+    <input matInput type="text" placeholder="Game title" />
+  </mat-form-field>
+  <mat-form-field *ngIf="teamConfigs.length&gt;1" class="num-players">
+    <mat-label>
+      Number of players
+    </mat-label>
+    <mat-chip-list [selectable]="true" [(ngModel)]="teamConfig">
+      <mat-chip class="num-players-chip" *ngFor="let config of teamConfigs" [value]="config" [selectable]="true"
+        (click)="teamConfig=config">{{config.teams.length}}</mat-chip>
+    </mat-chip-list>
+  </mat-form-field>
+  <gamesbyemail-base-chooseplayer *ngFor="let team of teamConfig.teams" [team]="team" [me]="me" [teams]="teamConfig.teams"
+    @playerTransition></gamesbyemail-base-chooseplayer>
+  <mat-expansion-panel *ngIf="optionsTemplate">
+    <mat-expansion-panel-header>
+      <mat-panel-title *ngIf="!anyOptionsChosen">
+        <gamesbyemail-base-optiontitle>
+          No options chosen.
+        </gamesbyemail-base-optiontitle>
+      </mat-panel-title>
+      <mat-panel-title *ngIf="anyOptionsChosen">
+        <gamesbyemail-base-optiontitle type="option">
+          Some options chosen.
+        </gamesbyemail-base-optiontitle>
+      </mat-panel-title>
+      <mat-panel-description>
+        There are options available for this game.
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <ng-container *ngTemplateOutlet="optionsTemplate;context:{teamConfig:teamConfig,options:options,change:optionChange}"></ng-container>
+  </mat-expansion-panel>
+  <button mat-raised-button color="primary" (click)="startGame()" class="start-game-button">Start Game</button>
+</mat-card>

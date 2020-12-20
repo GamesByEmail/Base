@@ -1,0 +1,1 @@
+export type DialogData = { [key: string]: any };

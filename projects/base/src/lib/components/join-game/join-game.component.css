@@ -1,0 +1,9 @@
+mat-form-field {
+  display:block;
+}
+.wide {
+  width:100%;
+}
+.cancel-join {
+  float: right;
+}

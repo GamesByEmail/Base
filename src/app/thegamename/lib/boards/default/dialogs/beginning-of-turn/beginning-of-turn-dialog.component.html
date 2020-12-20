@@ -1,0 +1,7 @@
+<svg [attr.viewBox]="'0 0 '+dialogSize.width+' '+dialogSize.height" [attr.width]="dialogSize.width" [attr.height]="dialogSize.height" xmlns="http://www.w3.org/2000/svg">
+  <g svg-dialog-title>
+    <ng-container *ngIf="territory">
+      <text>{{territory.title}}</text>
+  </ng-container>
+  </g>
+</svg>

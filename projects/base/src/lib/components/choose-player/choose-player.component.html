@@ -1,0 +1,65 @@
+<mat-form-field>
+  <mat-select [ngClass]="{'player-picked':team.player.user}" [value]="team.player.user" panelClass="GamesByEmail.Base.StartGame.player-picker-panel"
+    [placeholder]="'Choose player for '+team.title" (selectionChange)="playerPickerSelectionChange($event)"
+    [formControl]="user">
+    <mat-select-trigger>
+      <mat-icon *ngIf="team.player.user && !userIsJoin(team.player.user) && selectedCount(team.player.user)&gt;1" color="warn"
+        svgIcon="warning" matTooltip="This player is on multiple teams."></mat-icon>
+      <span *ngIf="me.id && team.player.user===me" class="player-me">
+        You as
+        <input type="text" class="name-editor" [(ngModel)]="me.teamName" [placeholder]="team.player.user.handle || team.player.user.name"
+          matTooltip="This is how your name will appear in just this game." matTooltipPosition="right" onclick="event.stopPropagation();"
+          onkeydown="event.stopPropagation();" />
+      </span>
+      <span *ngIf="userIsFriend(team.player.user)" class="player-friend">
+        {{team.player.user.name}} as
+        <input type="text" class="name-editor" [(ngModel)]="team.player.user.teamName" [placeholder]="team.player.user.nickName || team.player.user.handle || team.player.user.name"
+          matTooltip="This is how their name will appear in just this game." matTooltipPosition="right" onclick="event.stopPropagation();"
+          onkeydown="event.stopPropagation();" />
+      </span>
+      <span *ngIf="userIsJoin(team.player.user)" class="player-join">
+        Anyone at least {{experienceDeterminer(+join.experience)}}
+        <select class="experience-editor" [(ngModel)]="team.player.user.experience" [matTooltip]="experienceDescription(+this.team.player.user.experience)"
+          matTooltipPosition="right" onclick="event.stopPropagation();" onkeydown="event.stopPropagation();">
+          <option *ngFor="let level of experienceLevels" value={{level.experience}}>{{level.title}}</option>
+        </select>
+      </span>
+    </mat-select-trigger>
+    <mat-option *ngIf="me.id && selectedCount(me)&gt;0" [value]="join" class="player-join">
+      Anyone at least {{experienceDeterminer(+join.experience)}} {{experienceTitle(+join.experience)}}
+    </mat-option>
+    <mat-option *ngIf="me.id && selectedCount(me)&lt;=(team.player.user===me ? 1 : 0)" [value]="me" class="player-me">
+      You as {{me.teamName || me.handle || me.name}}
+    </mat-option>
+    <mat-option *ngIf="!me.id" [value]="me" class="player-me">
+      You (Log in to GamesByEmail)
+    </mat-option>
+    <mat-option *ngIf="!me.id" class="player-me">
+      You (Sign up with GamesByEmail)
+    </mat-option>
+    <ng-container *ngFor="let friend of me.friends">
+      <mat-option *ngIf="selectedCount(friend)&lt;=(team.player.user===friend ? 1 : 0)" [value]="friend" class="player-friend">
+        {{friend.name}} as {{friend.teamName || friend.nickName || friend.handle || friend.name}}
+      </mat-option>
+    </ng-container>
+    <mat-option *ngIf="me.id" class="player-new" [value]="add">
+      [Add a new player]
+    </mat-option>
+    <mat-option *ngIf="me.id && selectedCount(me)===0" [value]="join" class="player-join">
+      Anyone at least {{experienceDeterminer(+join.experience)}} {{experienceTitle(+join.experience)}}
+    </mat-option>
+    <mat-option *ngIf="me.id && (selectedCount(me)&gt;(team.player.user===me ? 1 : 0))" [value]="me" class="player-me">
+      <mat-icon color="warn" svgIcon="warning" matTooltip="This player is already on a team."></mat-icon>
+      You as {{me.teamName || me.handle || me.name}}
+    </mat-option>
+    <ng-container *ngFor="let friend of me.friends">
+      <mat-option *ngIf="selectedCount(friend)&gt;(team.player.user===friend ? 1 : 0)" [value]="friend" class="player-friend">
+        <mat-icon color="warn" svgIcon="warning" matTooltip="This player is already on a team."></mat-icon>
+        {{friend.name}} as {{friend.teamName || friend.nickName || friend.handle || friend.name}}
+      </mat-option>
+    </ng-container>
+  </mat-select>
+  <mat-error>
+    Player selection is required.
+  </mat-error>
+</mat-form-field>

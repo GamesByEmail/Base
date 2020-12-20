@@ -1,0 +1,38 @@
+<mat-card>
+  <ng-content></ng-content>
+  <mat-form-field>
+    <input matInput type=text class="wide" [value]="game.title" readonly placeholder="Game Title" />
+</mat-form-field>
+  <mat-form-field *ngFor="let team of game.teams">
+      <mat-label>
+          {{team.title}}
+        </mat-label>
+        <mat-chip-list>
+    <mat-chip class="wide" *ngIf="alreadyJoined && isEmpty(team)" [selectable]="false">
+      Waiting for a player to join
+    </mat-chip>
+    <mat-chip class="wide" *ngIf="!alreadyJoined && isEmpty(team)" [selected]="true" [selectable]="false" (click)="playThisTeam(team)">
+      Play this team
+    </mat-chip>
+    <mat-chip class="wide" *ngIf="team.player.joining && isMe(team)" [selectable]="false" [selected]="true">
+      You as &nbsp;
+      <input type="text" [(ngModel)]="joinName" [placeholder]="me.handle || me.name" onkeydown="event.stopImmediatePropagation()" onmousedown="event.stopImmediatePropagation()"/>
+      <mat-icon class="ok-join" svgIcon="ok" (click)="okJoin(team)"></mat-icon>
+      <mat-icon class="cancel-join" svgIcon="cancel" (click)="cancelJoin(team)"></mat-icon>
+    </mat-chip>
+    <mat-chip class="wide" *ngIf="alreadyJoined && !team.player.joining && isMe(team)" [selectable]="false" [selected]="true">
+      You as {{team.player.title}}
+    </mat-chip>
+    <mat-chip class="wide" *ngIf="isFriend(team)" [selectable]="false">
+      {{friendName(team)}} as {{team.player.title}}
+    </mat-chip>
+    <mat-chip class="wide" *ngIf="isEnemy(team)" [selectable]="false" color="warn">
+        <mat-icon svgIcon="warning" color="warn"></mat-icon> {{enemyName(team)}} as {{team.player.title}}, notes {{enemyNotes(team)}}
+    </mat-chip>
+    <mat-chip class="wide" *ngIf="isStranger(team)" [selectable]="false">
+      {{team.player.title}}
+    </mat-chip>
+  </mat-chip-list>
+  </mat-form-field>
+  <ng-container *ngTemplateOutlet="optionsTemplate"></ng-container>
+</mat-card>
