@@ -22,7 +22,7 @@ export class RulesComponent implements AfterViewInit, OnDestroy {
       const name = links[i].getAttribute("name");
       if (name) {
         const parts = name.split(".");
-        const title = "" + parts.pop();
+        const title = unescape("" + parts.pop());
         this.links.push({ title: title, depth: parts.length, name: name });
       }
       const href = links[i].getAttribute("href");
