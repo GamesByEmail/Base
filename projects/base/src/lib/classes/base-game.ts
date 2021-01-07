@@ -128,6 +128,7 @@ public get player() {
   }
   public setState(state: IGameState) {
     if (this.moveNumber !== state.moveNumber) {
+      this._moveNumber = state.moveNumber;
       this.board.setState(state.board);
       for (let i = 0; i < this.teams.length; i++)
         this.teams[i].setState(state.teams[i]);
