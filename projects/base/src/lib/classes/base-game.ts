@@ -207,5 +207,10 @@ public get player() {
     this.board.beginningMove();
     this.teams.forEach(team => team.beginningMove());
   }
-
+  public rollDie(max:number=6,min:number=1){
+    return Math.floor(Math.random()*(max-min+1))+min;
+  }
+  public rollDice(count:number,max:number=6,min:number=1){
+    return (new Array(count)).map(()=>this.rollDie(max,min));
+  }
 }
