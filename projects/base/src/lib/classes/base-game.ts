@@ -211,6 +211,9 @@ public get player() {
     return Math.floor(Math.random()*(max-min+1))+min;
   }
   public rollDice(count:number,max:number=6,min:number=1){
-    return (new Array(count)).map(()=>this.rollDie(max,min));
+    const dice=new Array<number>(count);
+    for (let i=0;i<count;i++)
+      dice[count]=this.rollDie(max,min);
+    return dice;
   }
 }
