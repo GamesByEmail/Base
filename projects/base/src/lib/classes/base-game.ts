@@ -207,13 +207,13 @@ public get player() {
     this.board.beginningMove();
     this.teams.forEach(team => team.beginningMove());
   }
-  public rollDie(max:number=6,min:number=1){
-    return Math.floor(Math.random()*(max-min+1))+min;
+  public rollDie(max: number = 6, min: number = 1) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
   }
-  public rollDice(count:number,max:number=6,min:number=1){
-    const dice=new Array<number>(count);
-    for (let i=0;i<count;i++)
-      dice[count]=this.rollDie(max,min);
+  public rollDice(count: number, max: number = 6, min: number = 1) {
+    const dice = new Array<number>(count);
+    for (let i = 0; i < count; i++)
+      dice[i] = this.rollDie(max, min);
     return dice;
   }
 }
