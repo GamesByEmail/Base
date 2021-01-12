@@ -11,7 +11,7 @@ import { Rectangle2D, Point2D } from '@packageforge/geometry2d';
 import { Factory } from './pieces/factory';
 import { AAGun } from './pieces/aagun';
 
-export interface ITerritorySave extends IBaseTerritorySave<Game, IGameOptions, IGameState, IGameSave, Board, IBoardSave, Territory, ITerritorySave, Team, TeamId, ITeamSave, Move, IModMove> {
+export interface ITerritorySave extends IBaseTerritorySave<Game, IGameOptions, IGameState, IGameSave, Board, IBoardState, IBoardSave, Territory, ITerritoryState, ITerritorySave, Team, TeamId, ITeamState, ITeamSave, Move, IModMove> {
   highlight: boolean;
   pieces: Piece[];
 }
@@ -21,7 +21,7 @@ interface IPieceDisplay {
   count: number;
   point: Point2D;
 };
-export class Territory extends BaseMapTerritory<Game, IGameOptions, IGameState, IGameSave, Board, IBoardSave, Territory, ITerritoryData, ITerritorySave, Team, TeamId, ITeamSave, Move, IModMove> {
+export class Territory extends BaseMapTerritory<Game, IGameOptions, IGameState, IGameSave, Board, IBoardState, IBoardSave, Territory, ITerritoryData, ITerritoryState, ITerritorySave, Team, TeamId, ITeamState, ITeamSave, Move, IModMove> {
   viewBox: Rectangle2D = new Rectangle2D(0, 0, 946, 554);
   constructor(board: Board, index: number, data: ITerritoryData) {
     super(board, index, data);

@@ -9,9 +9,9 @@ import { Piece, PieceChar } from './piece';
 import { ITerritoryData, territoryData } from './territory-data';
 import { createPiece } from './create-piece';
 
-export interface IBoardSave extends IBaseBoardSave<Game, IGameOptions, IGameState, IGameSave, Board, IBoardSave, Territory, ITerritorySave, Team, TeamId, ITeamSave, Move, IModMove> {
+export interface IBoardSave extends IBaseBoardSave<Game, IGameOptions, IGameState, IGameSave, Board, IBoardState, IBoardSave, Territory, ITerritoryState, ITerritorySave, Team, TeamId, ITeamState, ITeamSave, Move, IModMove> {
 }
-export class Board extends BaseMapBoard<Game, IGameOptions, IGameState, IGameSave, Board, IBoardSave, Territory, ITerritoryData, ITerritorySave, Team, TeamId, ITeamSave, Move, IModMove>  {
+export class Board extends BaseMapBoard<Game, IGameOptions, IGameState, IGameSave, Board, IBoardState, IBoardSave, Territory, ITerritoryData, ITerritoryState, ITerritorySave, Team, TeamId, ITeamState, ITeamSave, Move, IModMove>  {
   public controller: any;
   constructor(game: Game) {
     super(game,territoryData);

@@ -6,10 +6,10 @@ import { TeamId, areFriendly, areHostile } from './team-id';
 import { Move, IModMove } from './move';
 import { ITechTree, TechString, allTechs } from './i-tech-tree';
 
-export interface ITeamSave extends IBaseTeamSave<Game, IGameOptions, IGameState, IGameSave, Board, IBoardSave, Territory, ITerritorySave, Team, TeamId, ITeamSave, Move, IModMove> {
+export interface ITeamSave extends IBaseTeamSave<Game, IGameOptions, IGameState, IGameSave, Board, IBoardState, IBoardSave, Territory, ITerritoryState, ITerritorySave, Team, TeamId, ITeamState, ITeamSave, Move, IModMove> {
 }
 
-export class Team extends BaseTeam<Game, IGameOptions, IGameState, IGameSave, Board, IBoardSave, Territory, ITerritorySave, Team, TeamId, ITeamSave, Move, IModMove> {
+export class Team extends BaseTeam<Game, IGameOptions, IGameState, IGameSave, Board, IBoardState, IBoardSave, Territory, ITerritoryState, ITerritorySave, Team, TeamId, ITeamState, ITeamSave, Move, IModMove> {
   ipcs: number = 0;
   techTree: ITechTree = {};
   constructor(game: Game, id: TeamId) {

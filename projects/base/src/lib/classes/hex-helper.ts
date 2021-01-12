@@ -2,6 +2,8 @@ import { IHexSize } from "../interfaces/i-hex-size";
 import { Point2D, IPoint2D, Rectangle2D, isIPoint2D } from "@packageforge/geometry2d";
 import { BaseGridTerritory } from "../../public-api";
 
+type AbstractBaseGridTerritory = BaseGridTerritory<any, any, any, any, any, any, any, any, any, any, any, any, any, any, any, any>
+
 export class HexHelper {
   static extrapolateHexSides(side: number, ...sides: number[]): number[]
   static extrapolateHexSides(sidesIn: number[]): number[]
@@ -75,7 +77,7 @@ export class HexHelper {
   static getHexOffset(size: IHexSize, position: IPoint2D): Point2D {
     return size.offsetX.clone().scale(position.x).add(size.offsetY.clone().scale(position.y));
   }
-  static getHexViewBox(size: IHexSize, rotation: number, territories: BaseGridTerritory<any, any, any, any, any, any, any, any, any, any, any, any, any>[]): Rectangle2D {
+  static getHexViewBox(size: IHexSize, rotation: number, territories: AbstractBaseGridTerritory[]): Rectangle2D {
     let gotFirst = false;
     let xLow = 0, yLow = 0, xHigh = 0, yHigh = 0;
     const radians = rotation / 180 * Math.PI;
@@ -132,7 +134,7 @@ export class HexHelper {
     }
     throw ("index out of range for hex size: " + index + " [" + sides.join() + "]");
   }
-  static calculateAdjacents(territories: BaseGridTerritory<any, any, any, any, any, any, any, any, any, any, any, any, any>[]) {
+  static calculateAdjacents(territories: AbstractBaseGridTerritory[]) {
     territories.forEach(territory => {
       this.calculateAdjacent(territory, territories, 0, 0, -1);
       this.calculateAdjacent(territory, territories, 1, 1, 0);
@@ -142,7 +144,7 @@ export class HexHelper {
       this.calculateAdjacent(territory, territories, 5, -1, -1);
     });
   }
-  static calculateAdjacent(territory: BaseGridTerritory<any, any, any, any, any, any, any, any, any, any, any, any, any>, territories: BaseGridTerritory<any, any, any, any, any, any, any, any, any, any, any, any, any>[], direction: number, xOffset: 1 | 0 | -1, yOffset: 1 | 0 | -1) {
+  static calculateAdjacent(territory: AbstractBaseGridTerritory, territories: AbstractBaseGridTerritory[], direction: number, xOffset: 1 | 0 | -1, yOffset: 1 | 0 | -1) {
     if (territory.adjacents[direction] === undefined) {
       const other = this.findTerritory(territories, territory.position.x + xOffset, territory.position.y + yOffset);
       territory.adjacents[direction] = other;
@@ -150,7 +152,7 @@ export class HexHelper {
         other.adjacents[(direction + 3) % 6] = territory;
     }
   }
-  static getOverlayPolygon(size: IHexSize, territories: BaseGridTerritory<any, any, any, any, any, any, any, any, any, any, any, any, any>[], all?: boolean): string {
+  static getOverlayPolygon(size: IHexSize, territories: AbstractBaseGridTerritory[], all?: boolean): string {
     const ts = <any[]>territories;
     let first: number;
     for (let i = 0; i < territories.length; i++)
@@ -179,7 +181,7 @@ export class HexHelper {
     } while (direction !== 0 || territory.index !== first);
     return this.pointsToPolygon(points);
   }
-  static findTerritory(territories: BaseGridTerritory<any, any, any, any, any, any, any, any, any, any, any, any, any>[], x: number, y: number) {
+  static findTerritory(territories: AbstractBaseGridTerritory[], x: number, y: number) {
     for (let i = 0; i < territories.length; i++)
       if (territories[i].position.x === x && territories[i].position.y === y)
         return territories[i];
