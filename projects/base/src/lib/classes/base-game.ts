@@ -26,7 +26,7 @@ export interface IBaseGameState<
   IModMove
   > {
   moveNumber: number;
-  board: IBoardState;
+  board?: IBoardState;
   teams: ITeamState[];
   moves: IMove[];
 }
@@ -138,7 +138,8 @@ public get player() {
   public setState(state: IGameState) {
     if (this.moveNumber !== state.moveNumber) {
       this._moveNumber = state.moveNumber;
-      this.board.setState(state.board);
+      if (state.board!==undefined)
+        this.board.setState(state.board);
       for (let i = 0; i < this.teams.length; i++)
         this.teams[i].setState(state.teams[i]);
       this.lastMoves = state.moves;
